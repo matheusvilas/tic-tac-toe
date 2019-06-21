@@ -3,13 +3,26 @@ import { View, Text } from "react-native"
 import Field from "../../components/Field"
 import { connect } from "react-redux"
 import { actions } from "../../actions"
-import { verifyIfPitIsEmpty, verifyIfHasWinner } from "../../utils"
+import {
+  verifyIfPitIsEmpty,
+  verifyIfHasWinner,
+  verifyIfIsTie
+} from "../../utils"
 
 export class CtnField extends Component {
   updatePitByLocation = location => {
-    const { updatePitByLocation, choices, setNewWinner } = this.props
+    const {
+      updatePitByLocation,
+      choices,
+      setNewWinner,
+      gameIsBlock,
+      moves,
+      setGameToTie
+    } = this.props
 
-    if (!verifyIfPitIsEmpty(choices[location])) return false
+    if (!verifyIfPitIsEmpty(choices[location]) || gameIsBlock) return false
+
+    if (verifyIfIsTie(moves)) setGameToTie()
 
     const hasWinner = verifyIfHasWinner({ ...this.props, location })
 
@@ -22,7 +35,6 @@ export class CtnField extends Component {
   }
 
   render() {
-    console.log("O Estado Atual", this.props)
     const { choices, nextToPlay } = this.props
     return (
       <Field
@@ -41,7 +53,8 @@ const mapStateToProps = reducer => ({
 const mapDispatchToProps = dispatch => ({
   updatePitByLocation: payload =>
     dispatch(actions.updatePitByLocation(payload)),
-  setNewWinner: () => dispatch(actions.setNewWinner())
+  setNewWinner: () => dispatch(actions.setNewWinner()),
+  setGameToTie: () => dispatch(actions.setGameToTie())
 })
 
 export default connect(

@@ -5,8 +5,7 @@ const styles = StyleSheet.create({
     height: 100,
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    height: 80
+    alignItems: "center"
   },
   text: {
     flex: 1,

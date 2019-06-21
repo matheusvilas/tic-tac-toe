@@ -1,12 +1,15 @@
 import { types, actions } from "../actions"
 import { updateFieldChoicesWithNewLocation } from "../utils"
+
 const initialState = {
-  previusPlayed: "o",
-  nextToPlay: "x",
+  previusPlayed: "x",
+  nextToPlay: "o",
   score: {
     playerOne: 0,
     playerTwo: 0
   },
+  gameIsBlock: false,
+  modalVisible: false,
   choices: [
     { id: "0", choice: "" },
     { id: "1", choice: "" },
@@ -17,7 +20,9 @@ const initialState = {
     { id: "6", choice: "" },
     { id: "7", choice: "" },
     { id: "8", choice: "" }
-  ]
+  ],
+  moves: 0,
+  modalControlText: ""
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,7 +35,8 @@ const reducer = (state = initialState, action) => {
         ...newState,
         choices: newChoices,
         nextToPlay: newState.previusPlayed,
-        previusPlayed: newState.nextToPlay
+        previusPlayed: newState.nextToPlay,
+        moves: newState.moves + 1
       }
     case types.SET_NEW_WINNER:
       return {
@@ -44,7 +50,23 @@ const reducer = (state = initialState, action) => {
             newState.previusPlayed === "o"
               ? newState.score.playerTwo + 1
               : newState.score.playerTwo
-        }
+        },
+        gameIsBlock: true,
+        modalControlText:
+          newState.previusPlayed === "o" ? "Player One Win" : "Player Two Win",
+        modalVisible: true
+      }
+    case types.TOGGLE_MODAL_VISIBILITY:
+      return {
+        ...newState,
+        modalVisible: !newState.modalVisible
+      }
+    case types.SET_GAME_TO_TIE:
+      return {
+        ...newState,
+        modalControlText: "It's a tie",
+        modalVisible: true,
+        gameIsBlock: true
       }
     default:
       return state

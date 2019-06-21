@@ -57,3 +57,7 @@ const arrayContainsArray = (a, b) => {
     return a.indexOf(value) >= 0
   })
 }
+
+export const verifyIfIsTie = plays => {
+  return plays >= 8
+}
