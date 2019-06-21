@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#f7f7f9"
+  group: {
+    marginTop: 20,
+    alignContent: "center"
   },
-  scorePoints: {
-    fontSize: 40,
-    textAlign: "center",
-    width: "100%",
-    color: "#5f5f5f"
+  list: {
+    flex: 1,
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 2
   }
 })
 

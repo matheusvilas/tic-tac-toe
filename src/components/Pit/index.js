@@ -1,12 +1,25 @@
 import React, { Component } from "react"
-import { Text, View } from "react-native"
+import { TouchableOpacity, Text } from "react-native"
+import styles from "./style"
 
-export class Pit extends React.Component {
+type Props = {
+  choice: String,
+  updatePitByLocation: Function,
+  locationId: String
+}
+
+export class Pit extends React.Component<Props> {
   render() {
+    const { updatePitByLocation, locationId, choice } = this.props
     return (
-      <View>
-        <Text> Arroz </Text>
-      </View>
+      <TouchableOpacity
+        style={styles.group}
+        onPress={() => {
+          updatePitByLocation(locationId)
+        }}
+      >
+        <Text style={styles.text}>{choice}</Text>
+      </TouchableOpacity>
     )
   }
 }
