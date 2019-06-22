@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Text } from "react-native"
+import { Alert, View, Text } from "react-native"
 import Field from "../../components/Field"
 import { connect } from "react-redux"
 import { actions } from "../../actions"
@@ -35,12 +35,13 @@ export class CtnField extends Component {
   }
 
   render() {
-    const { choices, nextToPlay } = this.props
+    const { choices, nextToPlay, gameCount } = this.props
     return (
       <Field
         choices={this.props.choices}
         nextToPlay={nextToPlay}
         updatePitByLocation={this.updatePitByLocation}
+        gameCount={gameCount}
       />
     )
   }

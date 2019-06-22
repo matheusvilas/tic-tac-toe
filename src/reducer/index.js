@@ -22,7 +22,8 @@ const initialState = {
     { id: "8", choice: "" }
   ],
   moves: 0,
-  modalControlText: ""
+  modalControlText: "",
+  gameCount: 1
 }
 
 const reducer = (state = initialState, action) => {
@@ -43,11 +44,11 @@ const reducer = (state = initialState, action) => {
         ...newState,
         score: {
           playerOne:
-            newState.previusPlayed === "x"
+            newState.previusPlayed === "o"
               ? newState.score.playerOne + 1
               : newState.score.playerOne,
           playerTwo:
-            newState.previusPlayed === "o"
+            newState.previusPlayed === "x"
               ? newState.score.playerTwo + 1
               : newState.score.playerTwo
         },
@@ -67,6 +68,41 @@ const reducer = (state = initialState, action) => {
         modalControlText: "It's a tie",
         modalVisible: true,
         gameIsBlock: true
+      }
+    case types.START_NEW_GAME:
+      return {
+        ...newState,
+        gameIsBlock: false,
+        previusPlayed: "x",
+        nextToPlay: "o",
+        moves: 0,
+        choices: [
+          { id: "0", choice: "" },
+          { id: "1", choice: "" },
+          { id: "2", choice: "" },
+          { id: "3", choice: "" },
+          { id: "4", choice: "" },
+          { id: "5", choice: "" },
+          { id: "6", choice: "" },
+          { id: "7", choice: "" },
+          { id: "8", choice: "" }
+        ],
+        modalControlText: "",
+        modalVisible: false,
+        gameCount: newState.gameCount + 1
+      }
+    case types.SET_GAME_COUNT:
+      return {
+        ...newState,
+        gameCount: action.payload + 1
+      }
+    case types.SET_GAME_SCORE:
+      return {
+        ...newState,
+        score: {
+          playerOne: action.payload.playerOne,
+          playerTwo: action.payload.playerTwo
+        }
       }
     default:
       return state

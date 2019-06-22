@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { FlatList, View } from "react-native"
+import { FlatList, View, Text } from "react-native"
 import styles from "./style"
 import Pit from "../Pit/index"
 type Props = {
@@ -10,25 +10,28 @@ type Props = {
 
 export class Field extends React.Component<Props> {
   render() {
+    const { choices, updatePitByLocation, gameCount } = this.props
     return (
-      <FlatList
-        style={styles.group}
-        data={this.props.choices}
-        extraData={this.props}
-        numColumns={3}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.list}>
-              <Pit
-                choice={item.choice}
-                locationId={item.id}
-                updatePitByLocation={this.props.updatePitByLocation}
-              />
-            </View>
-          )
-        }}
-      />
+      <View style={styles.group}>
+        <Text style={styles.gameCount}> Game count: {gameCount}</Text>
+        <FlatList
+          data={choices}
+          extraData={this.props}
+          numColumns={3}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles.square}>
+                <Pit
+                  choice={item.choice}
+                  locationId={item.id}
+                  updatePitByLocation={updatePitByLocation}
+                />
+              </View>
+            )
+          }}
+        />
+      </View>
     )
   }
 }

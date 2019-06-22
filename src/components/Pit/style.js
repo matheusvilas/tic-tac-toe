@@ -8,10 +8,10 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   text: {
-    flex: 1,
-    color: "red",
+    color: "#5f5f5f",
     textAlign: "center",
-    fontSize: 50
+    fontSize: 50,
+    marginBottom: 10
   }
 })
 

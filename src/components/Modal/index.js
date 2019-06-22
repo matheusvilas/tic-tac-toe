@@ -16,13 +16,14 @@ export class ModalControll extends Component {
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <SafeAreaView style={styles.modalGroup}>
           <View style={styles.modalContent}>
-            <Text>{modalControlText}</Text>
+            <Text style={styles.modalText}>{modalControlText}</Text>
             <TouchableHighlight
               onPress={() => {
                 toggleModalVisibility()
               }}
+              style={styles.modalButton}
             >
-              <Text>Close Modal</Text>
+              <Text style={styles.buttonText}>OK!</Text>
             </TouchableHighlight>
           </View>
         </SafeAreaView>

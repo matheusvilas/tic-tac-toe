@@ -1,14 +1,21 @@
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-  group: {
-    marginTop: 20,
-    alignContent: "center"
+  gameCount: {
+    margin: 20,
+    marginLeft: 0,
+    color: "#5f5f5f",
+    fontSize: 18
   },
-  list: {
+  group: {
+    marginTop: 40,
+    alignContent: "center",
+    flex: 1
+  },
+  square: {
     flex: 1,
     backgroundColor: "white",
-    borderColor: "black",
+    borderColor: "rgba(0,0,0,0.8)",
     borderWidth: 2
   }
 })
