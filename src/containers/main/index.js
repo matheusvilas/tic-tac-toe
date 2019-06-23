@@ -1,10 +1,11 @@
-import React, { Component } from "react"
+// @flow
+import React, { useEffect, useState } from "react"
 import CtnScoreBoard from "../ctnScoreBoard"
 import CtnField from "../ctnFields"
 import CtnModal from "../ctnModal"
 import CtnMenu from "../ctnMenu"
-import { SafeAreaView, Alert } from "react-native"
-import styles from "../../components/MainComponent/style"
+import { Alert } from "react-native"
+import MainComponent from "../../components/MainComponent"
 import {
   retrieveGameCount,
   saveGameCount,
@@ -14,37 +15,47 @@ import {
 import { connect } from "react-redux"
 import { actions } from "../../actions"
 
-export class Main extends Component {
-  componentDidUpdate() {
-    const { gameCount, score } = this.props
+type Props = {
+  gameCount: number,
+  score: object,
+  setGameCount: Function,
+  setGameScore: Function
+}
 
-    saveGameCount(gameCount)
+export function Main(props: Props) {
+  const { gameCount, score, setGameCount, setGameScore } = props
+
+  const [loadedStorage, setLoadedStorage] = useState(false)
+
+  useEffect(() => {
+    if (loadedStorage) {
+      saveGameCount(gameCount, () => {
+        Alert.alert("You just played 5 games.")
+      })
+    }
+  }, [gameCount])
+
+  useEffect(() => {
     saveGameScore(score)
-  }
+  }, [score])
 
-  componentDidMount() {
-    const { setGameCount, setGameScore, gameCount } = this.props
-    retrieveGameCount().then(count => {
-      setGameCount(count)
-    })
+  useEffect(() => {
+    retrieveGameCount().then(count => count && setGameCount(count))
+    retrieveScore().then(score => score && setGameScore(score))
+  }, [loadedStorage])
 
-    retrieveScore().then(score => {
-      if (score) setGameScore(score)
-    })
+  useEffect(() => {
+    setLoadedStorage(true)
+  })
 
-    if (gameCount === 6) Alert.alert("You just played 5 games.")
-  }
-
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <CtnScoreBoard />
-        <CtnField />
-        <CtnModal />
-        <CtnMenu />
-      </SafeAreaView>
-    )
-  }
+  return (
+    <MainComponent>
+      <CtnScoreBoard />
+      <CtnField />
+      <CtnModal />
+      <CtnMenu />
+    </MainComponent>
+  )
 }
 
 const mapStateToProps = reducer => ({

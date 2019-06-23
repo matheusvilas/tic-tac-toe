@@ -1,17 +1,15 @@
-import React, { Component } from "react"
-import Main from "./containers/main"
-import { createStore, applyMiddleware } from "redux"
-import { Provider } from "react-redux"
-import reducer from "./reducer"
+import React from "react";
+import Main from "./containers/main";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./reducer";
 
-const store = createStore(reducer)
+const store = createStore(reducer);
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Main />
-      </Provider>
-    )
-  }
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  );
 }

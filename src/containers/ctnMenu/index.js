@@ -4,7 +4,7 @@ import { Alert } from "react-native"
 import { connect } from "react-redux"
 import { actions } from "../../actions"
 
-export class CtnModal extends Component {
+export class CtnMenu extends Component {
   getButtonTextByMoves = moves => {
     return moves > 0 ? "Restart Game" : "You can play"
   }
@@ -54,4 +54,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CtnModal)
+)(CtnMenu)

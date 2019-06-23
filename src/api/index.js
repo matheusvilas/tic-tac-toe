@@ -12,9 +12,10 @@ export const retrieveGameCount = async () => {
   }
 }
 
-export const saveGameCount = async count => {
+export const saveGameCount = async (count, cb) => {
   try {
     await AsyncStorage.setItem("gameCount", parseInt(count, 10))
+    if (count === 6) cb()
   } catch (error) {
     console.log(error)
   }
@@ -22,7 +23,6 @@ export const saveGameCount = async count => {
 
 export const saveGameScore = async gameScore => {
   try {
-    // await AsyncStorage.clear()
     await AsyncStorage.setItem("gameScore", JSON.stringify(gameScore))
   } catch (error) {
     console.log(error)
@@ -32,7 +32,6 @@ export const saveGameScore = async gameScore => {
 export const retrieveScore = async () => {
   try {
     const gameScore = await AsyncStorage.getItem("gameScore")
-    console.log("aqui", gameScore)
     if (gameScore !== null) {
       return JSON.parse(gameScore)
     }
