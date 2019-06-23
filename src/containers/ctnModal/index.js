@@ -1,25 +1,30 @@
-import React, { Component } from "react"
+// @flow
+import React from "react"
 import { ModalControll } from "../../components/Modal"
 import { connect } from "react-redux"
 import { actions } from "../../actions"
 
-export class CtnModal extends Component {
-  toggleModalVisibility = () => {
-    const { toggleModalVisibility } = this.props
+type Props = {
+  toggleModalVisibility: Function,
+  modalVisible: string,
+  modalControlText: boolean
+}
+
+export function CtnModal(props: Props) {
+  function toggleModalVisibility() {
+    const { toggleModalVisibility } = props
     toggleModalVisibility()
   }
 
-  render() {
-    const { modalVisible, modalControlText } = this.props
+  const { modalVisible, modalControlText } = props
 
-    return (
-      <ModalControll
-        modalVisible={modalVisible}
-        toggleModalVisibility={this.toggleModalVisibility}
-        modalControlText={modalControlText}
-      />
-    )
-  }
+  return (
+    <ModalControll
+      modalVisible={modalVisible}
+      toggleModalVisibility={toggleModalVisibility}
+      modalControlText={modalControlText}
+    />
+  )
 }
 
 const mapStateToProps = reducer => ({

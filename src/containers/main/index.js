@@ -1,10 +1,10 @@
 // @flow
 import React, { useEffect, useState } from "react"
+import { Alert } from "react-native"
 import CtnScoreBoard from "../ctnScoreBoard"
 import CtnField from "../ctnFields"
 import CtnModal from "../ctnModal"
 import CtnMenu from "../ctnMenu"
-import { Alert } from "react-native"
 import MainComponent from "../../components/MainComponent"
 import {
   retrieveGameCount,
@@ -17,7 +17,7 @@ import { actions } from "../../actions"
 
 type Props = {
   gameCount: number,
-  score: object,
+  score: Object,
   setGameCount: Function,
   setGameScore: Function
 }
@@ -36,7 +36,9 @@ export function Main(props: Props) {
   }, [gameCount])
 
   useEffect(() => {
-    saveGameScore(score)
+    if (loadedStorage) {
+      saveGameScore(score)
+    }
   }, [score])
 
   useEffect(() => {

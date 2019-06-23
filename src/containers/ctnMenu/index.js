@@ -1,16 +1,22 @@
-import React, { Component } from "react"
+// @flow
+import React from "react"
 import Menu from "../../components/Menu"
 import { Alert } from "react-native"
 import { connect } from "react-redux"
 import { actions } from "../../actions"
 
-export class CtnMenu extends Component {
-  getButtonTextByMoves = moves => {
+type Props = {
+  restartTheGame: Function,
+  moves: number
+}
+
+export function CtnMenu(props: Props) {
+  function getButtonTextByMoves(moves) {
     return moves > 0 ? "Restart Game" : "You can play"
   }
 
-  restartTheGame = () => {
-    const { restartTheGame } = this.props
+  function restartTheGame() {
+    const { restartTheGame } = props
 
     Alert.alert(
       "Do you want to restart the game?",
@@ -28,17 +34,14 @@ export class CtnMenu extends Component {
     )
   }
 
-  render() {
-    console.log(this.props)
-    const { moves } = this.props
-    return (
-      <Menu
-        buttonText={this.getButtonTextByMoves(moves)}
-        buttonPress={this.restartTheGame}
-        moves={moves}
-      />
-    )
-  }
+  const { moves } = props
+  return (
+    <Menu
+      buttonText={getButtonTextByMoves(moves)}
+      buttonPress={restartTheGame}
+      moves={moves}
+    />
+  )
 }
 
 const mapStateToProps = reducer => ({

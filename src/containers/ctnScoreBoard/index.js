@@ -1,15 +1,16 @@
-import React, { Component } from "react"
+// @flow
+import React from "react"
 import ScoreBoard from "../../components/Scoreboard"
 import { connect } from "react-redux"
 import actions from "../../actions"
 
-export class CtnScoreBoard extends Component {
-  render() {
-    const { score } = this.props
-    return (
-      <ScoreBoard playerOne={score.playerOne} playerTwo={score.playerTwo} />
-    )
-  }
+type Props = {
+  score: Object
+}
+
+export function CtnScoreBoard(props: Props) {
+  const { score } = props
+  return <ScoreBoard playerOne={score.playerOne} playerTwo={score.playerTwo} />
 }
 
 const mapStateToProps = reducer => ({

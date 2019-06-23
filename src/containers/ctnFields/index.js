@@ -1,4 +1,5 @@
-import React, { Component } from "react"
+// @flow
+import React from "react"
 import { Alert, View, Text } from "react-native"
 import Field from "../../components/Field"
 import { connect } from "react-redux"
@@ -9,8 +10,19 @@ import {
   verifyIfIsTie
 } from "../../utils"
 
-export class CtnField extends Component {
-  updatePitByLocation = location => {
+type Props = {
+  updatePitByLocation: Function,
+  choices: Object,
+  setNewWinner: Function,
+  gameIsBlock: boolean,
+  moves: number,
+  setGameToTie: Function,
+  gameCount: number,
+  nextToPlay: string
+}
+
+export function CtnField(props: Props) {
+  function updatePitByLocation(location) {
     const {
       updatePitByLocation,
       choices,
@@ -18,13 +30,13 @@ export class CtnField extends Component {
       gameIsBlock,
       moves,
       setGameToTie
-    } = this.props
+    } = props
 
     if (!verifyIfPitIsEmpty(choices[location]) || gameIsBlock) return false
 
     if (verifyIfIsTie(moves)) setGameToTie()
 
-    const hasWinner = verifyIfHasWinner({ ...this.props, location })
+    const hasWinner = verifyIfHasWinner({ ...props, location })
 
     if (hasWinner) {
       updatePitByLocation(location)
@@ -34,17 +46,15 @@ export class CtnField extends Component {
     }
   }
 
-  render() {
-    const { choices, nextToPlay, gameCount } = this.props
-    return (
-      <Field
-        choices={this.props.choices}
-        nextToPlay={nextToPlay}
-        updatePitByLocation={this.updatePitByLocation}
-        gameCount={gameCount}
-      />
-    )
-  }
+  const { choices, nextToPlay, gameCount } = props
+  return (
+    <Field
+      choices={props.choices}
+      nextToPlay={nextToPlay}
+      updatePitByLocation={updatePitByLocation}
+      gameCount={gameCount}
+    />
+  )
 }
 
 const mapStateToProps = reducer => ({
