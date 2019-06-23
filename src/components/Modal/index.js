@@ -17,7 +17,7 @@ type Props = {
 }
 
 export function ModalControll(props: Props) {
-  const { toggleModalVisibility, modalVisible, modalControlText } = this.props
+  const { toggleModalVisibility, modalVisible, modalControlText } = props
   return (
     <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <SafeAreaView style={styles.modalGroup}>
