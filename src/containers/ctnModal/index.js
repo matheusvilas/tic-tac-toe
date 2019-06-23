@@ -6,8 +6,8 @@ import { actions } from "../../actions"
 
 type Props = {
   toggleModalVisibility: Function,
-  modalVisible: string,
-  modalControlText: boolean
+  modalVisible: boolean,
+  modalControlText: string
 }
 
 export function CtnModal(props: Props) {

@@ -1,9 +1,12 @@
-import React from "react";
-import { SafeAreaView } from "react-native";
-import styles from "./style";
+// @flow
+import * as React from "react"
+import { SafeAreaView } from "react-native"
+import styles from "./style"
 
-export function Main({ children }) {
-  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+type Props = {
+  children: React.Node
 }
 
-export default Main;
+export default function Main({ children }: Props) {
+  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>
+}

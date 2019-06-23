@@ -1,21 +1,25 @@
-import React, { Component } from "react"
+// @flow
+import React from "react"
 import { TouchableOpacity, Text, View } from "react-native"
 import styles from "./style"
-export class Menu extends Component {
-  render() {
-    const { buttonText, buttonPress, moves } = this.props
-    return (
-      <View style={styles.group}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={buttonPress}
-          disabled={moves === 0}
-        >
-          <Text style={styles.buttonText}>{buttonText}</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+
+type Props = {
+  buttonText: string,
+  buttonPress: Function,
+  moves: number
 }
 
-export default Menu
+export default function Menu(props: Props) {
+  const { buttonText, buttonPress, moves } = props
+  return (
+    <View style={styles.group}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={buttonPress}
+        disabled={moves === 0}
+      >
+        <Text style={styles.buttonText}>{buttonText}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}

@@ -1,4 +1,5 @@
-import React, { Component } from "react"
+// @flow
+import React from "react"
 import { Text, View } from "react-native"
 import styles from "./style"
 
@@ -7,16 +8,15 @@ type Props = {
   playerTwo: number
 }
 
-export class ScoreBoard extends React.Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.scorePoints}>
-          {this.props.playerOne} x {this.props.playerTwo}
-        </Text>
-      </View>
-    )
-  }
+export function ScoreBoard(props: Props) {
+  const { playerOne, playerTwo } = props
+  return (
+    <View style={styles.container}>
+      <Text style={styles.scorePoints}>
+        {props.playerOne} x {props.playerTwo}
+      </Text>
+    </View>
+  )
 }
 
 export default ScoreBoard
